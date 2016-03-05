@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+	<!-- 驱动jar包 -->
+	<classPathEntry
+		location="C:\Users\yuting\git\gzjky_bean\lib\jtds-1.2.4.jar" /> 
+
+	<!-- defaultModelType: conditional 默认，主键不独立生成类 flat 为每一张表只生成一个实体类。这个实体类包含表中的所有字段。 
+		hierarchical 主键，Blob类型会单独生成继承类 -->
+	<context id="wgtest" defaultModelType="flat">
+
+		<!-- 注：context子元素有严格的配置顺序 -->
+
+		<!-- 设置要使用的Java文件的编码，默认使用当前平台的编码 -->
+		<property name="javaFileEncoding" value="UTF-8" />
+
+		<!-- 表名或者字段名为SQL关键字的时候，可以设置autoDelimitKeywords为true，MBG会自动给表名或字段名添加**分隔符**。 -->
+		<property name="autoDelimitKeywords" value="true" />
+
+		<!--由于beginningDelimiter和endingDelimiter的默认值为双引号(")，在Mysql中不能这么写，所以还要将这两个默认值改为**反单引号(`)**，配置如下 -->
+		<property name="beginningDelimiter" value="`" />
+		<property name="endingDelimiter" value="`" />
+
+		<!-- <property name="javaFormatter" value=""/> <property name="xmlFormatter" 
+			value=""/> <plugin type=""></plugin> -->
+
+		<!-- 去除自动生成的注释 true的场合没有@mbggenerated注解，反复自动生成会产生重复字段导致错误 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+
+		<!--数据库链接URL，用户名、密码 -->
+		<jdbcConnection driverClass="net.sourceforge.jtds.jdbc.Driver"
+			connectionURL="jdbc:jtds:sqlserver://192.168.0.119:1433;DatabaseName=GZJKYL"
+			userId="sa" password="zaq12wsx" />
+
+		<!-- mybatis里专门用来处理NUMERIC和DECIMAL类型的策略 默认false，把JDBC DECIMAL 和 NUMERIC 
+			类型解析为 Integer true，把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="true" />
+		</javaTypeResolver>
+
+		<!-- 生成模型的包名和位置 -->
+		<javaModelGenerator targetPackage="com.push.bean.gen"
+			targetProject="C:\gzjkylProj\pushBatch\src\main\java"><!-- targetProject:自动生成代码的位置 -->
+			<property name="enableSubPackages" value="true" /><!-- :是否让schema作为包的后缀 -->
+			<property name="trimStrings" value="false" /><!-- 从数据库返回的值被清理前后的空格 -->
+			<!-- <property name="rootClass" value="cn.teamlab.darwin.framework.dao.mybatis.base.BaseEntity" /> --><!-- 生成模型的基类 -->
+		</javaModelGenerator>
+
+		<!-- 生成映射文件的包名和位置 -->
+		<sqlMapGenerator targetPackage="com.push.dao.readdao"
+			targetProject="C:\gzjkylProj\pushBatch\src\main\java" />
+
+		<!-- 生成DAO的包名和位置 -->
+		<javaClientGenerator targetPackage="com.push.dao.readdao"
+			targetProject="C:\gzjkylProj\pushBatch\src\main\java" type="XMLMAPPER" />
+
+		<!-- tableName:用于自动生成代码的数据库表；domainObjectName:对应于数据库表的javaBean类名；ORACLE必须指定schema -->
+		<!-- *************************************view start ************************************* -->
+		<!-- 用户信息 -->
+		<table schema="" tableName="Users" domainObjectName="UserInfo"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<generatedKey column="ID" sqlStatement="sqlserver" identity="true"/>
+		</table>
+	</context>
+</generatorConfiguration>

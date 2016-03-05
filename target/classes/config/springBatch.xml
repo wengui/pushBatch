@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:batch="http://www.springframework.org/schema/batch"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd">
+
+<!-- 装载spring核心配置文件 -->
+	<import resource="classpath:/config/application-context.xml"/>
+	<import resource="classpath:/config/application-datasource-master.xml"/>
+	<import resource="classpath:/config/application-datasource-slave.xml"/>
+	<import resource="classpath:/config/application-datasource.xml"/>
+
+		<batch:job id="helloWorldJob">
+			<batch:step id="step_hello" next="step_world">
+				<batch:tasklet ref="hello" transaction-manager="transactionManager"></batch:tasklet>
+			</batch:step>
+			<batch:step id="step_world">
+				<batch:tasklet ref="world" transaction-manager="transactionManager"></batch:tasklet>
+			</batch:step>
+		</batch:job>
+
+		<bean class="com.push.pushBatch.WriteTasklet" id="hello">
+			<property name="message" value="Hello"></property>
+		</bean>
+
+		<bean class="com.push.pushBatch.WriteTasklet" id="world">
+			<property name="message" value="World!"></property>
+		</bean>
+
+</beans>
