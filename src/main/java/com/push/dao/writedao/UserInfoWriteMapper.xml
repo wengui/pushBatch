@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.push.dao.readdao.UserInfoMapper" >
+<mapper namespace="com.push.dao.writedao.UserInfoWriteMapper" >
   <resultMap id="BaseResultMap" type="com.push.bean.gen.UserInfo" >
     <id column="ID" property="id" jdbcType="INTEGER" />
     <result column="Name" property="name" jdbcType="VARCHAR" />
@@ -31,12 +31,6 @@
     QQ, CompanyEmail, OfficePhone, OfficePhoneExt, HomePhone, CellPhone, Address, Remark, 
     IdentityCard, Birthday, TakeOfficeTime, LastLoginTime, CreateTime, DeptID
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from Users
-    where ID = #{id,jdbcType=INTEGER}
-  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from Users
     where ID = #{id,jdbcType=INTEGER}

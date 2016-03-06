@@ -1,15 +1,13 @@
-package com.push.dao.readdao;
+package com.push.dao.writedao;
 
 import com.push.bean.gen.UserInfo;
 
-public interface UserInfoMapper {
+public interface UserInfoWriteMapper {
     int deleteByPrimaryKey(Integer id);
 
     int insert(UserInfo record);
 
     int insertSelective(UserInfo record);
-
-    UserInfo selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(UserInfo record);
 

@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.push.bean.gen.UserInfo;
-import com.push.dao.readdao.UserInfoMapper;
+import com.push.dao.readdao.UserInfoReadMapper;
 
 @Component("WriteTasklet")
 public class WriteTasklet implements Tasklet{
 
 	@Autowired
-	private UserInfoMapper UserInfoMapper;
+	private UserInfoReadMapper UserInfoMapper;
     private String message;
     
     /**
@@ -27,8 +27,8 @@ public class WriteTasklet implements Tasklet{
 
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext)throws Exception {
         System.out.println(message);
-        UserInfo info = UserInfoMapper.selectByPrimaryKey(206);
-        System.out.println(info);
+        //UserInfo info = UserInfoMapper.selectByPrimaryKey(206);
+        //System.out.println(info);
         return RepeatStatus.FINISHED;
     }
 
