@@ -17,12 +17,13 @@
     </properties> 
     
     <dependencies> 
-    	<!-- dependency 此处将dao作为一个jar包引入bean项目中 -->
-	   <dependency>
-  			<groupId>com.gzjky</groupId>
-  			<artifactId>dao</artifactId>
-  			<version>1.0.0</version>
-  		</dependency>
+    	<!-- dependency 此处将base作为一个jar包引入bean项目中 -->
+	<dependency>
+  		<groupId>com.gzjky</groupId>
+  		<artifactId>base</artifactId>
+  		<version>1.0.0</version>
+  		<scope>compile</scope>
+  	</dependency>
         		<!-- Spring Batch -->
 		<dependency>
 			<groupId>org.springframework.batch</groupId>
