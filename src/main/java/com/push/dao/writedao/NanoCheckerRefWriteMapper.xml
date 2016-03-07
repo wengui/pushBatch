@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.push.dao.writedao.NanoCheckerRefWriteMapper" >
+  <resultMap id="BaseResultMap" type="com.push.bean.gen.NanoCheckerRef" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="ItemName" property="itemname" jdbcType="VARCHAR" />
+    <result column="Age" property="age" jdbcType="INTEGER" />
+    <result column="Min" property="min" jdbcType="REAL" />
+    <result column="Max" property="max" jdbcType="REAL" />
+    <result column="Reference" property="reference" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, ItemName, Age, Min, Max, Reference
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from NanoCheckerRef
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.push.bean.gen.NanoCheckerRef" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT SCOPE_IDENTITY()
+    </selectKey>
+    insert into NanoCheckerRef (ItemName, Age, `Min`, 
+      `Max`, Reference)
+    values (#{itemname,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{min,jdbcType=REAL}, 
+      #{max,jdbcType=REAL}, #{reference,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.push.bean.gen.NanoCheckerRef" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT SCOPE_IDENTITY()
+    </selectKey>
+    insert into NanoCheckerRef
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="itemname != null" >
+        ItemName,
+      </if>
+      <if test="age != null" >
+        Age,
+      </if>
+      <if test="min != null" >
+        `Min`,
+      </if>
+      <if test="max != null" >
+        `Max`,
+      </if>
+      <if test="reference != null" >
+        Reference,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="itemname != null" >
+        #{itemname,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="min != null" >
+        #{min,jdbcType=REAL},
+      </if>
+      <if test="max != null" >
+        #{max,jdbcType=REAL},
+      </if>
+      <if test="reference != null" >
+        #{reference,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.push.bean.gen.NanoCheckerRef" >
+    update NanoCheckerRef
+    <set >
+      <if test="itemname != null" >
+        ItemName = #{itemname,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null" >
+        Age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="min != null" >
+        `Min` = #{min,jdbcType=REAL},
+      </if>
+      <if test="max != null" >
+        `Max` = #{max,jdbcType=REAL},
+      </if>
+      <if test="reference != null" >
+        Reference = #{reference,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.push.bean.gen.NanoCheckerRef" >
+    update NanoCheckerRef
+    set ItemName = #{itemname,jdbcType=VARCHAR},
+      Age = #{age,jdbcType=INTEGER},
+      `Min` = #{min,jdbcType=REAL},
+      `Max` = #{max,jdbcType=REAL},
+      Reference = #{reference,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
