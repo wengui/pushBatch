@@ -21,7 +21,7 @@
       SELECT SCOPE_IDENTITY()
     </selectKey>
     insert into NanoCheckerResult (PatientName, TestTime, ItemName, 
-      `Value`, Age)
+      Value, Age)
     values (#{patientname,jdbcType=VARCHAR}, #{testtime,jdbcType=TIMESTAMP}, #{itemname,jdbcType=VARCHAR}, 
       #{value,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER})
   </insert>
@@ -41,7 +41,7 @@
         ItemName,
       </if>
       <if test="value != null" >
-        `Value`,
+        Value,
       </if>
       <if test="age != null" >
         Age,
@@ -78,7 +78,7 @@
         ItemName = #{itemname,jdbcType=VARCHAR},
       </if>
       <if test="value != null" >
-        `Value` = #{value,jdbcType=VARCHAR},
+        Value = #{value,jdbcType=VARCHAR},
       </if>
       <if test="age != null" >
         Age = #{age,jdbcType=INTEGER},
@@ -91,7 +91,7 @@
     set PatientName = #{patientname,jdbcType=VARCHAR},
       TestTime = #{testtime,jdbcType=TIMESTAMP},
       ItemName = #{itemname,jdbcType=VARCHAR},
-      `Value` = #{value,jdbcType=VARCHAR},
+      Value = #{value,jdbcType=VARCHAR},
       Age = #{age,jdbcType=INTEGER}
     where ID = #{id,jdbcType=INTEGER}
   </update>

@@ -9,6 +9,8 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.push.bean.gen.NanoCheckerResult;
+import com.push.dao.writedao.NanoCheckerResultWriteMapper;
 import com.push.util.ILoadFile;
 
 
@@ -17,6 +19,8 @@ public class WriteTasklet implements Tasklet{
 
 /*	@Autowired
 	private UserInfoReadMapper UserInfoMapper;*/
+	@Autowired
+	private NanoCheckerResultWriteMapper nanoCheckerResultWriteMapper;
     private String message;
 	@Autowired
 	private ILoadFile loadFile;
@@ -30,15 +34,16 @@ public class WriteTasklet implements Tasklet{
     }
 
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext)throws Exception {
-        System.out.println(message);
-        //UserInfo info = UserInfoMapper.selectByPrimaryKey(206);
-        //System.out.println(info);
         String filePath = "C:/txtTest/";
         ArrayList<String> fileName = loadFile.getAllFileName("C:/txtTest");
 		for (String name : fileName) {
-			// System.out.println(name);
-			loadFile.readTxtFile(filePath + name);
-			//loadFile.copy(filePath + name, "C:/txtTest1/");
+			ArrayList<NanoCheckerResult> resultList = loadFile.readTxtFile(filePath + name);
+			
+			for(NanoCheckerResult result : resultList){
+				nanoCheckerResultWriteMapper.insertSelective(result);
+			}
+			
+			// 数据操作完成后，将文件移动的备份文件夹中
 			loadFile.move(filePath + name, "C:/txtTest1/");
 		}
         return RepeatStatus.FINISHED;

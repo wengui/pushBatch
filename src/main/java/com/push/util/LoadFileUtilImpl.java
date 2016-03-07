@@ -7,10 +7,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.springframework.stereotype.Component;
+
+import com.push.bean.gen.NanoCheckerResult;
 
 /**
  * @author
@@ -26,30 +29,76 @@ public class LoadFileUtilImpl implements ILoadFile {
 	 * 复制文件类型
 	 */
 	private static final String types = ".txt;";
+	
+	/**
+	 * 日期格式
+	 */
+	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");  
 
 	/**
 	 * 功能：Java读取txt文件的内容 步骤：1：先获得文件句柄 2：获得文件句柄当做是输入一个字节码流，需要对这个输入流进行读取
 	 * 3：读取到输入流后，需要读取生成字节流 4：一行一行的输出。readline()。 备注：需要考虑的是异常情况
 	 * 
 	 * @param filePath
-	 * @return true:读取成功,flase:读取失败
 	 */
-	public boolean readTxtFile(String filePath) {
-		boolean flag = true;
+	public ArrayList<NanoCheckerResult> readTxtFile(String filePath) {
+		ArrayList<NanoCheckerResult> resultList = null;
 		try {
+			
+			resultList = new ArrayList<NanoCheckerResult>();
+			
 			String encoding = "GBK";
 			File file = new File(filePath);
 			if (file.isFile() && file.exists()) { // 判断文件是否存在
 				InputStreamReader read = new InputStreamReader(new FileInputStream(file), encoding);// 考虑到编码格式
 				BufferedReader bufferedReader = new BufferedReader(read);
 				String lineTxt = null;
+				String testtime = "";
+				String patientName = "";
 				while ((lineTxt = bufferedReader.readLine()) != null) {
-					System.out.println(lineTxt);
+
+					if(lineTxt.startsWith("H")){
+						// 取得测试时间
+						testtime = lineTxt.substring(6, 20);
+					}else if(lineTxt.startsWith("P")){
+						// 取得患者姓名
+						int lastIndex = lineTxt.lastIndexOf("|");
+						if(!(lastIndex == - 1)){
+							patientName = lineTxt.substring(lastIndex + 1, lineTxt.length());
+						}
+						
+					}else if(lineTxt.startsWith("R") && !lineTxt.contains("Control")){
+						NanoCheckerResult result = new NanoCheckerResult();
+						result.setPatientname(patientName);// 患者姓名
+						result.setTesttime(sdf.parse(testtime));// 测试时间
+						//TODO 现在年龄还没有设置
+						result.setAge(25);// 患者年龄
+						
+						// 项目名称设定
+						int lastIndex = lineTxt.lastIndexOf("^");
+						// 操作内容的字符串
+						String itemnameTxt = lineTxt.substring(lastIndex + 1, lineTxt.length());
+						int itemnameTxtIndex = itemnameTxt.indexOf("|");
+						
+						if(!(itemnameTxtIndex == - 1)){
+							result.setItemname(itemnameTxt.substring(0, itemnameTxtIndex));// 项目名称
+						}
+						
+						// 项目值设定
+						String valueTxt = itemnameTxt.substring(itemnameTxtIndex+1, itemnameTxt.length());
+						int valueTxtIndex = valueTxt.indexOf("|");
+						
+						if(!(valueTxtIndex == - 1)){
+							result.setValue(valueTxt.substring(0, valueTxtIndex));// 项目名称
+						}
+						
+						// 从文中读出的结果设定到list中
+						resultList.add(result);
+					}
 				}
 				read.close();
 			} else {
 				// 文件读取失败
-				flag = false;
 				System.out.println("找不到指定的文件");
 			}
 		} catch (Exception e) {
@@ -57,22 +106,9 @@ public class LoadFileUtilImpl implements ILoadFile {
 			e.printStackTrace();
 		}
 
-		return flag;
+		return resultList;
 
 	}
-
-	/*
-	 * public static void main(String argv[]) { String filePath = "C:/txtTest/";
-	 * // "res/"; // readTxtFile(filePath);
-	 * 
-	 * // String [] fileName = getFileName("C:/txtTest"); // for(String
-	 * name:fileName) // { // System.out.println(name); // }
-	 * System.out.println("--------------------------------"); ArrayList<String>
-	 * fileName = getAllFileName("C:/txtTest"); for (String name : fileName) {
-	 * // System.out.println(name); readTxtFile(filePath + name); }
-	 * 
-	 * }
-	 */
 
 	/**
 	 * 返回文件夹下文件列表

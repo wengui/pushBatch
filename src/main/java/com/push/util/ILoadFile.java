@@ -2,6 +2,8 @@ package com.push.util;
 
 import java.util.ArrayList;
 
+import com.push.bean.gen.NanoCheckerResult;
+
 public interface ILoadFile {
 
 	/**
@@ -9,9 +11,8 @@ public interface ILoadFile {
 	 * 3：读取到输入流后，需要读取生成字节流 4：一行一行的输出。readline()。 备注：需要考虑的是异常情况
 	 * 
 	 * @param filePath
-	 * @return true:读取成功,flase:读取失败
 	 */
-	public boolean readTxtFile(String filePath);
+	public ArrayList<NanoCheckerResult> readTxtFile(String filePath);
 	
 	/**
 	 * 返回文件夹下文件列表
