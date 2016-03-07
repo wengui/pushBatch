@@ -14,9 +14,10 @@
 	<import resource="classpath:/config/application-datasource.xml"/>
 
 		<batch:job id="helloWorldJob">
-			<batch:step id="step_hello" next="step_world">
+<!-- 		<batch:step id="step_hello" next="step_world">
 				<batch:tasklet ref="hello" transaction-manager="transactionManager"></batch:tasklet>
 			</batch:step>
+			 -->	
 			<batch:step id="step_world">
 				<batch:tasklet ref="world" transaction-manager="transactionManager"></batch:tasklet>
 			</batch:step>

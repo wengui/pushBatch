@@ -1,4 +1,4 @@
-package com.push.util;
+package com.push.util.Impl;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -14,6 +14,7 @@ import java.util.Arrays;
 import org.springframework.stereotype.Component;
 
 import com.push.bean.gen.NanoCheckerResult;
+import com.push.util.ILoadFile;
 
 /**
  * @author

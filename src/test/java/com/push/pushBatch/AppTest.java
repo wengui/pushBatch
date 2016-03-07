@@ -1,4 +1,4 @@
-package com.gzjky.pushBatch;
+package com.push.pushBatch;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
