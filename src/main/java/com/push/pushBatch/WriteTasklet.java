@@ -36,8 +36,9 @@ public class WriteTasklet implements Tasklet{
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext)throws Exception {
         
     	// 调用主要处理
-    	excuteBatch();
-    	
+    	//excuteBatch();
+    	push.apnpush();
+    	System.out.println("push.apnpush()");
         return RepeatStatus.FINISHED;
     }
     
@@ -45,7 +46,7 @@ public class WriteTasklet implements Tasklet{
      * batch 主要处理
      * @throws Exception
      */
-    public void excuteBatch() throws Exception{
+    public void excuteBatch() throws Exception{/*
     	String filePath = "C:/txtTest/";
         ArrayList<String> fileName = loadFile.getAllFileName("C:/txtTest");
 		for (String name : fileName) {
@@ -80,6 +81,6 @@ public class WriteTasklet implements Tasklet{
 				nanoCheckerPushHistoryWriteMapper.insertSelective(record);
 			}
 		}
-    }
+    */}
 
 }

@@ -7,7 +7,10 @@ import org.springframework.stereotype.Component;
 
 import com.gexin.rp.sdk.base.IPushResult;
 import com.gexin.rp.sdk.base.impl.AppMessage;
+import com.gexin.rp.sdk.base.impl.ListMessage;
+import com.gexin.rp.sdk.base.payload.APNPayload;
 import com.gexin.rp.sdk.http.IGtPush;
+import com.gexin.rp.sdk.template.APNTemplate;
 import com.gexin.rp.sdk.template.LinkTemplate;
 import com.gexin.rp.sdk.template.TransmissionTemplate;
 import com.push.util.Ipush;
@@ -23,6 +26,8 @@ public class PushtoImpl implements Ipush{
 	static String appkey = "YoN2xo5o7463N0wqGFkhF8";
 	static String master = "4R8zoqK2kr9chS7UGrQO31";
 	static String host = "http://sdk.open.api.igexin.com/apiex.htm";
+	static String devicetoken = "91A99FD0731EFA0AD02C4DE2C644F6A146FD43CFDAA980AEE51B1073D618AF5A";
+	static String url ="http://sdk.open.api.igexin.com/serviceex";
 
 	public TransmissionTemplate TransmissionTemplateDemo()
 			throws Exception {
@@ -100,5 +105,36 @@ public class PushtoImpl implements Ipush{
 		IPushResult ret = push.pushMessageToApp(pushMessage);
 		return ret.getResponse().get("result").toString();
 	}
+	
+	
+
+	    public void apnpush() throws Exception {
+	       IGtPush push = new IGtPush(url, appkey, master);
+	       
+	       APNTemplate t = new APNTemplate();
+	       APNPayload apnpayload = new APNPayload();
+	       apnpayload.setSound("");
+	       APNPayload.DictionaryAlertMsg alertMsg = new APNPayload.DictionaryAlertMsg();
+	       alertMsg.setTitle("aaaaaa");
+	       alertMsg.setBody("bbbb");
+	       alertMsg.setTitleLocKey("ccccc");
+	       alertMsg.setActionLocKey("ddddd");
+	       apnpayload.setAlertMsg(alertMsg);
+	       t.setAPNInfo(apnpayload);
+	       ListMessage message = new ListMessage();
+	       message.setData(t);
+	       String contentId = push.getAPNContentId(appId, message);
+	       System.out.println(contentId);
+	       List<String> dtl = new ArrayList<String>();
+	       dtl.add(devicetoken);
+	       System.setProperty("gexin.rp.sdk.pushlist.needDetails", "true");
+	       IPushResult ret = push.pushAPNMessageToList(appId, contentId, dtl);
+	       System.out.println(ret.getResponse());
+	    }
+	    
+/*	    public static void main(String[] args) throws Exception {
+	       apnpush();
+	    }*/
+
 
 }

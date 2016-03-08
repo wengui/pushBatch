@@ -38,5 +38,7 @@ public interface Ipush {
 	 * @return
 	 */
 	public String push(String title,String message,String date) throws Exception;
+	
+	public void apnpush() throws Exception;
 			
 }
