@@ -20,7 +20,7 @@
 		where ID = #{id,jdbcType=INTEGER}
 	</select>
 
-	<select id="selectByPatientId" resultMap="BaseResultMap">
+	<select id="selectByPatientId" resultType="com.push.bean.gen.NanoCheckerReport">
 		select
 		result.PatientName,
 		result.Age,

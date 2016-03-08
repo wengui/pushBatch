@@ -7,7 +7,7 @@ public class NanoCheckerReport {
     private String PatientName;
  
 	//病人年龄
-    private String Age;
+    private Integer Age;
     //项目英文名字
     private String ItemId;
     //项目中文名字
@@ -20,7 +20,7 @@ public class NanoCheckerReport {
     //最大值
     private Integer Max;
     //参考值
-    private Integer Reference;
+    private String Reference;
 
     public String getPatientName() {
  		return PatientName;
@@ -28,10 +28,10 @@ public class NanoCheckerReport {
  	public void setPatientName(String patientName) {
  		PatientName = patientName;
  	}
- 	public String getAge() {
+ 	public Integer getAge() {
  		return Age;
  	}
- 	public void setAge(String age) {
+ 	public void setAge(Integer age) {
  		Age = age;
  	}
  	public String getItemId() {
@@ -64,10 +64,10 @@ public class NanoCheckerReport {
  	public void setMax(Integer max) {
  		Max = max;
  	}
- 	public Integer getReference() {
+ 	public String getReference() {
  		return Reference;
  	}
- 	public void setReference(Integer reference) {
+ 	public void setReference(String reference) {
  		Reference = reference;
  	}
 }
