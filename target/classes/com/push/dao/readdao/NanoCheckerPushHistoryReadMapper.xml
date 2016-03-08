@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.push.dao.readdao.NanoCheckerPushHistoryReadMapper" >
+  <resultMap id="BaseResultMap" type="com.push.bean.gen.NanoCheckerPushHistory" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="DoctorName" property="doctorname" jdbcType="VARCHAR" />
+    <result column="PushTime" property="pushtime" jdbcType="TIMESTAMP" />
+    <result column="PushContent" property="pushcontent" jdbcType="VARCHAR" />
+    <result column="PatientName" property="patientname" jdbcType="VARCHAR" />
+    <result column="TestTime" property="testtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, DoctorName, PushTime, PushContent, PatientName, TestTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from NanoCheckerPushHistory
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+
+</mapper>

@@ -28,22 +28,25 @@ public class WriteTasklet implements Tasklet{
 	@Autowired
 	private NanoCheckerPushHistoryWriteMapper nanoCheckerPushHistoryWriteMapper;
 	
-    private String message;
 	@Autowired
 	private ILoadFile loadFile;
 	@Autowired
 	private Ipush push;
     
-    /**
-     * @param message
-     * the message to set
-     */
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext)throws Exception {
-        String filePath = "C:/txtTest/";
+        
+    	// 调用主要处理
+    	excuteBatch();
+    	
+        return RepeatStatus.FINISHED;
+    }
+    
+    /**
+     * batch 主要处理
+     * @throws Exception
+     */
+    public void excuteBatch() throws Exception{
+    	String filePath = "C:/txtTest/";
         ArrayList<String> fileName = loadFile.getAllFileName("C:/txtTest");
 		for (String name : fileName) {
 			ArrayList<NanoCheckerResult> resultList = loadFile.readTxtFile(filePath + name);
@@ -77,7 +80,6 @@ public class WriteTasklet implements Tasklet{
 				nanoCheckerPushHistoryWriteMapper.insertSelective(record);
 			}
 		}
-        return RepeatStatus.FINISHED;
     }
 
 }

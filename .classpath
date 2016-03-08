@@ -26,10 +26,18 @@
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
 	</classpathentry>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.gzjky.base"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.gzjky.bean"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/com.gzjky.dao"/>
+	<classpathentry kind="lib" path="lib/jackson-all-1.8.5.jar"/>
+	<classpathentry kind="lib" path="lib/gexin-rp-sdk-template-4.0.0.3.jar"/>
+	<classpathentry kind="lib" path="lib/gexin-rp-sdk-http-4.0.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/gexin-rp-sdk-base-4.0.0.3.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.2.jar"/>
+	<classpathentry kind="lib" path="lib/commons-configuration-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/protobuf-java-2.5.0.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
