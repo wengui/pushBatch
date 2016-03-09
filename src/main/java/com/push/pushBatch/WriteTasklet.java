@@ -36,8 +36,7 @@ public class WriteTasklet implements Tasklet{
     public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext)throws Exception {
         
     	// 调用主要处理
-    	//excuteBatch();
-    	push.apnpush();
+    	excuteBatch();
     	System.out.println("push.apnpush()");
         return RepeatStatus.FINISHED;
     }
@@ -46,7 +45,7 @@ public class WriteTasklet implements Tasklet{
      * batch 主要处理
      * @throws Exception
      */
-    public void excuteBatch() throws Exception{/*
+    public void excuteBatch() throws Exception{
     	String filePath = "C:/txtTest/";
         ArrayList<String> fileName = loadFile.getAllFileName("C:/txtTest");
 		for (String name : fileName) {
@@ -66,21 +65,24 @@ public class WriteTasklet implements Tasklet{
 			// 消息推送
 			String title ="健康检查";
 			String message ="你有一条最新的检查结果的通知！";
-			String status = push.push(title, message, null);
-			if("ok".equals(status)){
-				// 推送记录登录
-				NanoCheckerPushHistory record = new NanoCheckerPushHistory();
-				record.setDoctorname("余医生");// 推送对象
-				record.setPushtime(new Date());// 推送时间
-				//TODO 测试项目
-				record.setPushcontent("三合一");// 患者测试项目
-				record.setPatientname(patientName);// 患者姓名
-				record.setTesttime(testTime);// 患者测试时间
+			// 向安卓手机推送消息
+			push.push(title, message, null);
+			// 向苹果手机推送消息
+			push.apnpush(title, message, null);
+			
+			
+			// 推送记录登录
+			NanoCheckerPushHistory record = new NanoCheckerPushHistory();
+			record.setDoctorname("余医生");// 推送对象
+			record.setPushtime(new Date());// 推送时间
+			//TODO 测试项目
+			record.setPushcontent("三合一");// 患者测试项目
+			record.setPatientname(patientName);// 患者姓名
+			record.setTesttime(testTime);// 患者测试时间
 				
-				// 推送记录登录
-				nanoCheckerPushHistoryWriteMapper.insertSelective(record);
-			}
+			// 推送记录登录
+			nanoCheckerPushHistoryWriteMapper.insertSelective(record);
 		}
-    */}
+    }
 
 }

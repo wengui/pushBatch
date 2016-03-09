@@ -22,8 +22,11 @@ public class JobLaunch {
              
             // 处理结束，控制台打印处理结果 
             System.out.println(result.toString());
+            
         } catch (Exception e) {
+        	System.out.println(e);
             throw new RuntimeException(e);
+            
         }
     }
 }

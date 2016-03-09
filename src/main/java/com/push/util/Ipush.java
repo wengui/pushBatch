@@ -39,6 +39,13 @@ public interface Ipush {
 	 */
 	public String push(String title,String message,String date) throws Exception;
 	
-	public void apnpush() throws Exception;
+	/**
+	 * 推送给苹果手机
+	 * @param title
+	 * @param messages
+	 * @param date
+	 * @throws Exception
+	 */
+	public String apnpush(String title,String messages,String date) throws Exception;
 			
 }
