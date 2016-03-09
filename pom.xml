@@ -27,6 +27,13 @@
     
     <dependencies> 
 
+		<!-- URL Rewrite -->
+		<dependency>
+			<groupId>org.tuckey</groupId>
+			<artifactId>urlrewritefilter</artifactId>
+			<version>4.0.4</version>
+		</dependency>
+
 		<!-- Logging -->
 		<dependency>
 	    	<groupId>commons-logging</groupId>
@@ -40,7 +47,34 @@
 			<version>${log4j.version}</version>
 		</dependency>
 
-		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib-nodep</artifactId>
+			<version>2.2.2</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.7.1</version>
+		</dependency>
 
 		<!-- Spring -->
 		<dependency>
@@ -267,6 +301,46 @@
 			<groupId>net.sourceforge.jtds</groupId>
 			<artifactId>jtds</artifactId>
 			<version>1.2.4</version>
+		</dependency>
+
+		<!-- Velocity -->
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>1.7</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-lang</groupId>
+  					<artifactId>commons-lang</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity-tools</artifactId>
+			<version>2.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.apache.velocity</groupId>
+  					<artifactId>velocity</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-beanutils</groupId>
+  					<artifactId>commons-beanutils</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-digester</groupId>
+  					<artifactId>commons-digester</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-collections</groupId>
+  					<artifactId>commons-collections</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+  					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- Freemarker -->
@@ -613,7 +687,165 @@
 			<artifactId>spring-batch-core</artifactId>
 			<version>3.0.2.RELEASE</version>
 		</dependency>  
+		
+		<!-- 引入外部第三方jar包 -->
+		<dependency>
+		  <groupId>commons-codec</groupId>
+		    <artifactId>codec</artifactId>
+		    <version>1.2</version>
+		    <scope>system</scope>
+		  <systemPath>${project.basedir}/src/main/resources/lib/commons-codec-1.2.jar</systemPath>
+		</dependency>
+		
+		<dependency>
+		    <groupId>commons-configuration</groupId>
+		    <artifactId>configuration</artifactId>
+		    <version>1.6</version>
+		    <scope>system</scope>
+		    <systemPath>${project.basedir}/src/main/resources/lib/commons-configuration-1.6.jar</systemPath>
+		</dependency>
+		
+		<dependency>
+		    <groupId>gexin-rp-sdk-base</groupId>
+		    <artifactId>sdk-base</artifactId>
+		    <version>4.0.0.3</version>
+		    <scope>system</scope>
+		    <systemPath>${project.basedir}/src/main/resources/lib/gexin-rp-sdk-base-4.0.0.3.jar</systemPath>
+		</dependency>
+		
+		<dependency>
+		    <groupId>gexin-rp-sdk-http</groupId>
+		    <artifactId>sdk-http</artifactId>
+		    <version>4.0.1.0</version>
+		    <scope>system</scope>
+		    <systemPath>${project.basedir}/src/main/resources/lib/gexin-rp-sdk-http-4.0.1.0.jar</systemPath>
+		</dependency>
+		
+		<dependency>
+		    <groupId>gexin-rp-sdk-template</groupId>
+		    <artifactId>sdk-template</artifactId>
+		    <version>4.0.0.3</version>
+		    <scope>system</scope>
+		    <systemPath>${project.basedir}/src/main/resources/lib/gexin-rp-sdk-template-4.0.0.3.jar</systemPath>
+		</dependency>
+		
+		<dependency>
+		    <groupId>jackson-all</groupId>
+		    <artifactId>jackson-all</artifactId>
+		    <version>1.8.5</version>
+		    <scope>system</scope>
+		    <systemPath>${project.basedir}/src/main/resources/lib/jackson-all-1.8.5.jar</systemPath>
+		</dependency>
+		
+		<dependency>
+		    <groupId>protobuf-java</groupId>
+		    <artifactId>protobuf-java</artifactId>
+		    <version>2.5.0</version>
+		    <scope>system</scope>
+		    <systemPath>${project.basedir}/src/main/resources/lib/protobuf-java-2.5.0.jar</systemPath>
+		</dependency>
 
     </dependencies> 
 
+	<build>  
+        <finalName>push</finalName>  
+        <sourceDirectory>src/main/java</sourceDirectory>  
+        <resources>  
+            <!-- 控制资源文件的拷贝 -->  
+            <resource>  
+                <directory>src/main/resources</directory>  
+                <includes>  
+	                <include>**/*.properties</include>  
+	                <include>**/*.xml</include>  
+            	</includes>  
+            <filtering>false</filtering>  
+            </resource>  
+        </resources>  
+        <plugins>  
+            <!-- 设置源文件编码方式 -->  
+            <plugin>  
+                <groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-compiler-plugin</artifactId>  
+                <configuration>  
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>  
+                    <source>1.6</source>  
+                    <target>1.6</target>  
+                    <encoding>UTF-8</encoding>  
+                </configuration>  
+            </plugin>  
+            <!-- 打包jar文件时，配置manifest文件，加入lib包的jar依赖 -->  
+            <plugin>  
+                <groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-jar-plugin</artifactId>  
+                <configuration>  
+                    <archive>  
+                        <manifest>  
+                            <addClasspath>true</addClasspath>  
+                            <classpathPrefix>lib/</classpathPrefix>  
+                            <mainClass>com.push.pushBatch.JobLaunch</mainClass>  
+                        </manifest>  
+                    </archive>  
+                </configuration>  
+            </plugin>  
+            <!-- 拷贝依赖的jar包到lib目录 -->  
+            <plugin>  
+                <groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-dependency-plugin</artifactId>  
+                <executions>  
+                    <execution>  
+                        <id>copy</id>  
+                        <phase>package</phase>  
+                        <goals>  
+                            <goal>copy-dependencies</goal>  
+                        </goals>  
+                        <configuration>  
+                            <outputDirectory>  
+                                ${project.build.directory}/lib  
+                            </outputDirectory>  
+                        </configuration>  
+                    </execution>  
+                </executions>  
+            </plugin>  
+            
+            		<!-- 导入本地jar包 -->
+ 		<plugin> 
+              <artifactId>maven-compiler-plugin</artifactId> 
+              <configuration> 
+                  <source>1.6</source> 
+                  <target>1.6</target> 
+                  <encoding>UTF-8</encoding> 
+                  <compilerArguments> 
+                   <extdirs>src/main/resources/lib</extdirs> 
+                 </compilerArguments> 
+              </configuration> 
+            </plugin> 
+            
+            <!-- 解决资源文件的编码问题 -->  
+            <plugin>
+					    <groupId>org.apache.maven.plugins</groupId>
+					    <artifactId>maven-resources-plugin</artifactId>
+					    <version>2.5</version>
+					    <configuration>
+					        <encoding>${project.build.sourceEncoding}</encoding>
+					    </configuration>
+					</plugin>  
+            <!-- 打包source文件为jar文件 -->  
+            <plugin>  
+                <artifactId>maven-source-plugin</artifactId>  
+                <version>2.1</version>  
+                <configuration>  
+                    <attach>true</attach>  
+                    <encoding>UTF-8</encoding>  
+                </configuration>  
+                <executions>  
+                    <execution>  
+                        <phase>compile</phase>  
+                        <goals>  
+                            <goal>jar</goal>  
+                        </goals>  
+                    </execution>  
+                </executions>  
+            </plugin>  
+        </plugins>  
+    </build>  
 </project>

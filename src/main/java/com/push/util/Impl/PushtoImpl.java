@@ -60,7 +60,7 @@ public class PushtoImpl implements Ipush{
 		LinkTemplate template = new LinkTemplate();
 		template.setAppId(appId);
 		template.setAppkey(appkey);
-		template.setTitle(title);
+		template.setTitle(title+"安卓手机");
 		template.setText(message);
 		
 		template.setLogo("icon.png");
@@ -99,7 +99,6 @@ public class PushtoImpl implements Ipush{
 		
 		// 设置推送系统
 		phoneTypeList.add("ANDROID");
-		phoneTypeList.add("IOS");
 		pushMessage.setPhoneTypeList(phoneTypeList);
 		
 		IPushResult ret = push.pushMessageToApp(pushMessage);
@@ -108,17 +107,17 @@ public class PushtoImpl implements Ipush{
 	
 	
 
-	    public void apnpush() throws Exception {
+	    public String apnpush(String title,String messages,String date) throws Exception {
 	       IGtPush push = new IGtPush(url, appkey, master);
 	       
 	       APNTemplate t = new APNTemplate();
 	       APNPayload apnpayload = new APNPayload();
 	       apnpayload.setSound("");
 	       APNPayload.DictionaryAlertMsg alertMsg = new APNPayload.DictionaryAlertMsg();
-	       alertMsg.setTitle("aaaaaa");
-	       alertMsg.setBody("bbbb");
+	       alertMsg.setTitle(title+"苹果手机");
+	       alertMsg.setBody(messages);
 	       alertMsg.setTitleLocKey("ccccc");
-	       alertMsg.setActionLocKey("ddddd");
+	       alertMsg.setActionLocKey("ddddd"+"苹果手机");
 	       apnpayload.setAlertMsg(alertMsg);
 	       t.setAPNInfo(apnpayload);
 	       ListMessage message = new ListMessage();
@@ -130,11 +129,6 @@ public class PushtoImpl implements Ipush{
 	       System.setProperty("gexin.rp.sdk.pushlist.needDetails", "true");
 	       IPushResult ret = push.pushAPNMessageToList(appId, contentId, dtl);
 	       System.out.println(ret.getResponse());
+	       return ret.getResponse().get("result").toString();
 	    }
-	    
-/*	    public static void main(String[] args) throws Exception {
-	       apnpush();
-	    }*/
-
-
 }
