@@ -26,7 +26,7 @@ public class PushtoImpl implements Ipush{
 	static String appkey = "YoN2xo5o7463N0wqGFkhF8";
 	static String master = "4R8zoqK2kr9chS7UGrQO31";
 	static String host = "http://sdk.open.api.igexin.com/apiex.htm";
-	static String devicetoken = "91A99FD0731EFA0AD02C4DE2C644F6A146FD43CFDAA980AEE51B1073D618AF5A";
+	static String devicetoken = "59374d5ec6b1ab4e7388cf6b5c634da6d8cc69592a93c384d6ede69561d6f025";
 	static String url ="http://sdk.open.api.igexin.com/serviceex";
 
 	public TransmissionTemplate TransmissionTemplateDemo()
