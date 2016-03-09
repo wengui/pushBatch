@@ -1,6 +1,9 @@
 package com.push.util;
 
+import java.util.Map;
+
 import com.gexin.rp.sdk.template.LinkTemplate;
+import com.gexin.rp.sdk.template.NotificationTemplate;
 import com.gexin.rp.sdk.template.TransmissionTemplate;
 
 public interface Ipush {
@@ -37,7 +40,7 @@ public interface Ipush {
 	 * @param date 后台需要的数据
 	 * @return
 	 */
-	public String push(String title,String message,String date) throws Exception;
+	public String push(String title,String message,Map<String,String> dateMap) throws Exception;
 	
 	/**
 	 * 推送给苹果手机
@@ -46,6 +49,15 @@ public interface Ipush {
 	 * @param date
 	 * @throws Exception
 	 */
-	public String apnpush(String title,String messages,String date) throws Exception;
+	public String apnpush(String title,String messages,Map<String,String> dateMap) throws Exception;
+	
+	/**
+	 * 点击通知打开应用模板
+	 * 针对沉默用户，发送推送消息，点击消息栏的通知可直接激活启动应用，提升应用的转化率
+	 * @return
+	 * @throws Exception
+	 */
+	public NotificationTemplate NotificationTemplateDemo(String title,String message,Map<String,String> dateMap)
+			throws Exception;
 			
 }
