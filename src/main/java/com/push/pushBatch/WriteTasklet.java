@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
@@ -36,6 +37,18 @@ public class WriteTasklet implements Tasklet {
 	private ILoadFile loadFile;
 	@Autowired
 	private Ipush push;
+	
+	@SuppressWarnings("serial")
+	public final static Map<String,String> map = new HashMap<String,String>() {{
+		put("NT-proBNP", "N端脑钠肽");  
+	    put("PCT", "降钙素原"); 
+	    put("D-dimer", "D二聚体"); 
+	    put("TnI", "肌钙蛋白"); 
+	    //TODO
+	    put("Tn I", "肌钙蛋白"); 
+	    put("Myo", "肌红蛋白"); 
+	    put("CK-MB", "肌酸激酶同工酶"); 
+	}};
 
 	public RepeatStatus execute(StepContribution stepContribution, ChunkContext chunkContext) throws Exception {
 
@@ -65,14 +78,21 @@ public class WriteTasklet implements Tasklet {
 		for (String name : fileName) {
 			String patientName = "";// 患者姓名
 			Date testTime = null;// 检查时间
+			String itemName = "";// 测试项目
+			StringBuffer pushcontent = new StringBuffer();// 测试项目名称
 			
-			// 从文件中读取的数据
+			// 从文件中读取的数
 			ArrayList<NanoCheckerResult> resultList = loadFile.readTxtFile(filePath + name);
 			
 			// 根据读取的内容向数据库中插入检查结果
 			for (NanoCheckerResult result : resultList) {
 				patientName = result.getPatientname();
 				testTime = result.getTesttime();
+				// 测试项目名称取得
+				if(map.containsKey(result.getItemname())){
+					pushcontent.append(map.get(result.getItemname()));
+					pushcontent.append(",");
+				}
 				nanoCheckerResultWriteMapper.insertSelective(result);
 			}
 
@@ -90,10 +110,16 @@ public class WriteTasklet implements Tasklet {
 
 			// 推送记录登录
 			NanoCheckerPushHistory record = new NanoCheckerPushHistory();
-			record.setDoctorname("余医生");// 推送对象
+			record.setDoctorname("医生");// 推送对象
 			record.setPushtime(new Date());// 推送时间
-			// TODO 测试项目
-			record.setPushcontent("三合一");// 患者测试项目
+			// 测试项目
+			itemName = pushcontent.toString();
+			if(!"".equals(itemName) && itemName != null){
+				record.setPushcontent(itemName.substring(0, itemName.length()-1));// 患者测试项目
+			}else{
+				record.setPushcontent("");
+			}
+			
 			record.setPatientname(patientName);// 患者姓名
 			record.setTesttime(testTime);// 患者测试时间
 
