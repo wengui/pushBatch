@@ -13,6 +13,8 @@ public class NanoCheckerRef {
 
     private String reference;
 
+    private String setflag;
+
     public Integer getId() {
         return id;
     }
@@ -59,5 +61,13 @@ public class NanoCheckerRef {
 
     public void setReference(String reference) {
         this.reference = reference;
+    }
+
+    public String getSetflag() {
+        return setflag;
+    }
+
+    public void setSetflag(String setflag) {
+        this.setflag = setflag;
     }
 }

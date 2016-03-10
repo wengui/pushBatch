@@ -19,9 +19,10 @@
 	<constant name="struts.i18n.encoding" value="UTF-8"/>	
 	<constant name="struts.devMode" value="true"/>	
 	
-	<include file="config/struts/data/struts-base.xml" />
+	
 	<!-- 使用模块化管理，把每一个模块的struts。xml都包含进了 -->
 	<!-- 
+	<include file="config/struts/data/struts-base.xml" />
 	<include file="config/struts/data/struts-base.xml" />
 	<include file="config/struts/data/struts-admin-base.xml" />
 	<include file="config/struts/data/struts-admin.xml" />

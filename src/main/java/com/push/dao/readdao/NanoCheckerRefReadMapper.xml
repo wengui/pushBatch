@@ -8,9 +8,10 @@
 		<result column="Min" property="min" jdbcType="REAL" />
 		<result column="Max" property="max" jdbcType="REAL" />
 		<result column="Reference" property="reference" jdbcType="VARCHAR" />
+    		<result column="setFlag" property="setflag" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		ID, ItemName, Age, Min, Max, Reference
+		ID, ItemName, Age, Min, Max, Reference, setFlag
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
@@ -51,5 +52,18 @@
 		END
 		order by
 		result.PatientName,result.ItemName
+	</select>
+	
+	<select id="selectByCheckerRef" resultType="com.push.bean.gen.NanoCheckerReport">
+		SELECT
+			ID AS id,
+			ItemName,
+			Age,
+			min,
+			max
+		FROM
+			NanoCheckerRef
+		WHERE
+			setFlag = '1';
 	</select>
 </mapper>

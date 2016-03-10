@@ -8,9 +8,10 @@
     <result column="Min" property="min" jdbcType="REAL" />
     <result column="Max" property="max" jdbcType="REAL" />
     <result column="Reference" property="reference" jdbcType="VARCHAR" />
+    <result column="setFlag" property="setflag" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, ItemName, Age, Min, Max, Reference
+    ID, ItemName, Age, Min, Max, Reference, setFlag
   </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from NanoCheckerRef
@@ -21,9 +22,11 @@
       SELECT SCOPE_IDENTITY()
     </selectKey>
     insert into NanoCheckerRef (ItemName, Age, `Min`, 
-      `Max`, Reference)
+      `Max`, Reference, setFlag
+      )
     values (#{itemname,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{min,jdbcType=REAL}, 
-      #{max,jdbcType=REAL}, #{reference,jdbcType=VARCHAR})
+      #{max,jdbcType=REAL}, #{reference,jdbcType=VARCHAR}, #{setflag,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.push.bean.gen.NanoCheckerRef" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -46,6 +49,9 @@
       <if test="reference != null" >
         Reference,
       </if>
+      <if test="setflag != null" >
+        setFlag,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="itemname != null" >
@@ -62,6 +68,9 @@
       </if>
       <if test="reference != null" >
         #{reference,jdbcType=VARCHAR},
+      </if>
+      <if test="setflag != null" >
+        #{setflag,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -83,6 +92,9 @@
       <if test="reference != null" >
         Reference = #{reference,jdbcType=VARCHAR},
       </if>
+      <if test="setflag != null" >
+        setFlag = #{setflag,jdbcType=VARCHAR},
+      </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
@@ -92,7 +104,43 @@
       Age = #{age,jdbcType=INTEGER},
       `Min` = #{min,jdbcType=REAL},
       `Max` = #{max,jdbcType=REAL},
-      Reference = #{reference,jdbcType=VARCHAR}
+      Reference = #{reference,jdbcType=VARCHAR},
+      setFlag = #{setflag,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+  
+  <update id="updateByMaxValue">
+    update NanoCheckerRef
+    set 
+      Max = #{max,jdbcType=REAL}
+    where ItemName = #{itemname,jdbcType=VARCHAR}
+    	and setFlag = #{setflag,jdbcType=VARCHAR}
+    <if test="age != null" >
+       and Age = #{age,jdbcType=INTEGER}
+      </if>
+  </update>
+  
+  <update id="updateByMinValue">
+    update NanoCheckerRef
+    set 
+      Min = #{min,jdbcType=REAL}
+    where ItemName = #{itemname,jdbcType=VARCHAR}
+    	and setFlag = #{setflag,jdbcType=VARCHAR}
+    	<if test="age != null" >
+       and Age = #{age,jdbcType=INTEGER}
+      </if>
+  </update>
+  
+    <update id="updateByMaxAndMinValue">
+    update NanoCheckerRef
+    set 
+      Max = #{max,jdbcType=REAL},
+      Min = #{min,jdbcType=REAL}
+    where ItemName = #{itemname,jdbcType=VARCHAR}
+    	and setFlag = #{setflag,jdbcType=VARCHAR}
+    <if test="age != null" >
+       and Age = #{age,jdbcType=INTEGER}
+      </if>
+  </update>
+  
 </mapper>
