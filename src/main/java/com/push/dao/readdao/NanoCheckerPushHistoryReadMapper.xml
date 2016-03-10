@@ -18,5 +18,11 @@
     from NanoCheckerPushHistory
     where ID = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectAll" resultType="com.push.bean.gen.NanoCheckerPushHistory">
+    select 
+    *
+    from NanoCheckerPushHistory
+
+  </select>
 
 </mapper>
