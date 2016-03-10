@@ -29,7 +29,9 @@
 		result.[Value],
 		ref.[Min],
 		ref.[Max],
-		ref.Reference
+		ref.Reference,
+		ref.Unit,
+		ref.Color
 
 		from NanoCheckerRef ref,NanoCheckerResult result,NanoCheckerItemRef itemref
 		WHERE

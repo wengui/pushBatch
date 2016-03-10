@@ -21,6 +21,10 @@ public class NanoCheckerReport {
     private Float Max;
     //参考值
     private String Reference;
+    //单位
+    private String Unit;
+    //颜色
+    private String Color;
 
     public String getPatientName() {
  		return PatientName;
@@ -70,4 +74,17 @@ public class NanoCheckerReport {
  	public void setReference(String reference) {
  		Reference = reference;
  	}
+	public String getUnit() {
+		return Unit;
+	}
+	public void setUnit(String unit) {
+		Unit = unit;
+	}
+	public String getColor() {
+		return Color;
+	}
+	public void setColor(String color) {
+		Color = color;
+	}
+ 	
 }
