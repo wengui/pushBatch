@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.push.dao.writedao.NanoCheckerPushHistoryWriteMapper" >
+  <resultMap id="BaseResultMap" type="com.push.bean.gen.NanoCheckerPushHistory" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="DoctorName" property="doctorname" jdbcType="VARCHAR" />
+    <result column="PushTime" property="pushtime" jdbcType="TIMESTAMP" />
+    <result column="PushContent" property="pushcontent" jdbcType="VARCHAR" />
+    <result column="PatientName" property="patientname" jdbcType="VARCHAR" />
+    <result column="TestTime" property="testtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, DoctorName, PushTime, PushContent, PatientName, TestTime
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from NanoCheckerPushHistory
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.push.bean.gen.NanoCheckerPushHistory" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT SCOPE_IDENTITY()
+    </selectKey>
+    insert into NanoCheckerPushHistory (DoctorName, PushTime, PushContent, 
+      PatientName, TestTime)
+    values (#{doctorname,jdbcType=VARCHAR}, #{pushtime,jdbcType=TIMESTAMP}, #{pushcontent,jdbcType=VARCHAR}, 
+      #{patientname,jdbcType=VARCHAR}, #{testtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.push.bean.gen.NanoCheckerPushHistory" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT SCOPE_IDENTITY()
+    </selectKey>
+    insert into NanoCheckerPushHistory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="doctorname != null" >
+        DoctorName,
+      </if>
+      <if test="pushtime != null" >
+        PushTime,
+      </if>
+      <if test="pushcontent != null" >
+        PushContent,
+      </if>
+      <if test="patientname != null" >
+        PatientName,
+      </if>
+      <if test="testtime != null" >
+        TestTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="doctorname != null" >
+        #{doctorname,jdbcType=VARCHAR},
+      </if>
+      <if test="pushtime != null" >
+        #{pushtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pushcontent != null" >
+        #{pushcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="patientname != null" >
+        #{patientname,jdbcType=VARCHAR},
+      </if>
+      <if test="testtime != null" >
+        #{testtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.push.bean.gen.NanoCheckerPushHistory" >
+    update NanoCheckerPushHistory
+    <set >
+      <if test="doctorname != null" >
+        DoctorName = #{doctorname,jdbcType=VARCHAR},
+      </if>
+      <if test="pushtime != null" >
+        PushTime = #{pushtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pushcontent != null" >
+        PushContent = #{pushcontent,jdbcType=VARCHAR},
+      </if>
+      <if test="patientname != null" >
+        PatientName = #{patientname,jdbcType=VARCHAR},
+      </if>
+      <if test="testtime != null" >
+        TestTime = #{testtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.push.bean.gen.NanoCheckerPushHistory" >
+    update NanoCheckerPushHistory
+    set DoctorName = #{doctorname,jdbcType=VARCHAR},
+      PushTime = #{pushtime,jdbcType=TIMESTAMP},
+      PushContent = #{pushcontent,jdbcType=VARCHAR},
+      PatientName = #{patientname,jdbcType=VARCHAR},
+      TestTime = #{testtime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -3,9 +3,11 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:batch="http://www.springframework.org/schema/batch"
+       xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-                http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd">
+                http://www.springframework.org/schema/batch http://www.springframework.org/schema/batch/spring-batch.xsd
+                http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
 
 <!-- 装载spring核心配置文件 -->
 	<import resource="classpath:/config/application-context.xml"/>
@@ -23,12 +25,12 @@
 			</batch:step>
 		</batch:job>
 
-		<bean class="com.push.pushBatch.WriteTasklet" id="hello">
-			<property name="message" value="Hello"></property>
-		</bean>
+		<!-- 配置定时任务 -->
+	    <task:scheduled-tasks>  
+	        <task:scheduled ref="world" method="excuteBatch" cron="0 0/1 * * * ?" />  
+	    </task:scheduled-tasks> 
 
 		<bean class="com.push.pushBatch.WriteTasklet" id="world">
-			<property name="message" value="World!"></property>
 		</bean>
 
 </beans>

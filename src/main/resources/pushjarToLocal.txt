@@ -1,0 +1,13 @@
+
+
+把推送需要的jar包拷到一个目录下面，我的目录是：C:\Users\yuting\git\pushBatch\src\main\resources\lib\
+然后运行下面命令，将jar包发布到本地maven库中，在pom.xlm中引用，就可以打jar包了
+
+
+mvn install:install-file -DgroupId=gexin-rp-sdk-base -DartifactId=sdk-base -Dversion=4.0.1.0 -Dpackaging=jar -Dfile=C:\Users\yuting\git\pushBatch\src\main\resources\lib\gexin-rp-sdk-base-4.0.0.3.jar 
+mvn install:install-file -DgroupId=gexin-rp-sdk-http -DartifactId=sdk-http -Dversion=4.0.1.0 -Dpackaging=jar -Dfile=C:\Users\yuting\git\pushBatch\src\main\resources\lib\gexin-rp-sdk-http-4.0.1.0.jar 
+mvn install:install-file -DgroupId=gexin-rp-sdk-template -DartifactId=sdk-template -Dversion=4.0.1.0 -Dpackaging=jar -Dfile=C:\Users\yuting\git\pushBatch\src\main\resources\lib\gexin-rp-sdk-template-4.0.0.3.jar 
+mvn install:install-file -DgroupId=commons-codec -DartifactId=commons-codec -Dversion=1.2 -Dpackaging=jar -Dfile=C:\Users\yuting\git\pushBatch\src\main\resources\lib\commons-codec-1.2.jar 
+mvn install:install-file -DgroupId=commons-configuration -DartifactId=commons-configuration -Dversion=1.6 -Dpackaging=jar -Dfile=C:\Users\yuting\git\pushBatch\src\main\resources\lib\commons-configuration-1.6.jar 
+mvn install:install-file -DgroupId=jackson-all -DartifactId=jackson-all -Dversion=1.8.5 -Dpackaging=jar -Dfile=C:\Users\yuting\git\pushBatch\src\main\resources\lib\jackson-all-1.8.5.jar
+mvn install:install-file -DgroupId=protobuf-java -DartifactId=protobuf-java -Dversion=2.5.0 -Dpackaging=jar -Dfile=C:\Users\yuting\git\pushBatch\src\main\resources\lib\protobuf-java-2.5.0.jar

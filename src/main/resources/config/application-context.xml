@@ -35,7 +35,7 @@
 	<context:property-placeholder ignore-unresolvable="false"
 			location="classpath:/config/jdbc.properties"/>
 
-	<bean id="springContextUtil" class="com.gzjky.base.service.context.SpringContextUtil"></bean>
+	<bean id="springContextUtil" class="com.push.service.context.SpringContextUtil"></bean>
 
 	<!-- spring batch 引入 -->
     <bean id="jobLauncher"
