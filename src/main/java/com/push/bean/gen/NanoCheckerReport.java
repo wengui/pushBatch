@@ -13,12 +13,12 @@ public class NanoCheckerReport {
     //项目中文名字
     private String ItemName;
     //结果值
-    private Integer Value;
+    private Float Value;
 
     //最小值
-    private Integer Min;
+    private Float Min;
     //最大值
-    private Integer Max;
+    private Float Max;
     //参考值
     private String Reference;
 
@@ -46,22 +46,22 @@ public class NanoCheckerReport {
  	public void setItemName(String itemName) {
  		ItemName = itemName;
  	}
- 	public Integer getValue() {
+ 	public Float getValue() {
  		return Value;
  	}
- 	public void setValue(Integer value) {
+ 	public void setValue(Float value) {
  		Value = value;
  	}
- 	public Integer getMin() {
+ 	public Float getMin() {
  		return Min;
  	}
- 	public void setMin(Integer min) {
+ 	public void setMin(Float min) {
  		Min = min;
  	}
- 	public Integer getMax() {
+ 	public Float getMax() {
  		return Max;
  	}
- 	public void setMax(Integer max) {
+ 	public void setMax(Float max) {
  		Max = max;
  	}
  	public String getReference() {
