@@ -1,5 +1,6 @@
 package com.push.util;
 
+import java.util.List;
 import java.util.Map;
 
 import com.gexin.rp.sdk.template.LinkTemplate;
@@ -49,7 +50,7 @@ public interface Ipush {
 	 * @param date
 	 * @throws Exception
 	 */
-	public String apnpush(String title,String messages,Map<String,String> dateMap) throws Exception;
+	public String apnpush(String title,String messages,Map<String,String> dateMap, List<String> dtl) throws Exception;
 	
 	/**
 	 * 点击通知打开应用模板

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.push.dao.readdao.NanoCheckerDeviceTokenReadMapper" >
+  <resultMap id="BaseResultMap" type="com.push.bean.gen.NanoCheckerDeviceToken" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="deviceToken" property="devicetoken" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, deviceToken
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from NanoCheckerDeviceToken
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  
+    <select id="selectByDeviceToken" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from NanoCheckerDeviceToken
+    where devicetoken = #{devicetoken,jdbcType=VARCHAR}
+  </select>
+  
+    <select id="selectAll" resultType="java.lang.String" >
+    select 
+   	 deviceToken
+    from NanoCheckerDeviceToken
+  </select>
+  
+</mapper>

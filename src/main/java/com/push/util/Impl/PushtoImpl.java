@@ -69,7 +69,7 @@ public class PushtoImpl implements Ipush{
 	/**
 	 * 消息推送
 	 */
-	public String apnpush(String title, String messages, Map<String,String> dateMap) throws Exception {
+	public String apnpush(String title, String messages, Map<String,String> dateMap, List<String> dtl) throws Exception {
 		IGtPush push = new IGtPush(url, appkey, master);
 
 		APNTemplate template = new APNTemplate();
@@ -90,8 +90,6 @@ public class PushtoImpl implements Ipush{
 		ListMessage message = new ListMessage();
 		message.setData(template);
 		String contentId = push.getAPNContentId(appId, message);
-		List<String> dtl = new ArrayList<String>();
-		dtl.add(devicetoken);
 		
 		// 消息推送处理
 		IPushResult ret = push.pushAPNMessageToList(appId, contentId, dtl);

@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.batch.core.StepContribution;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import com.push.bean.gen.NanoCheckerPushHistory;
 import com.push.bean.gen.NanoCheckerResult;
+import com.push.dao.readdao.NanoCheckerDeviceTokenReadMapper;
 import com.push.dao.writedao.NanoCheckerPushHistoryWriteMapper;
 import com.push.dao.writedao.NanoCheckerResultWriteMapper;
 import com.push.util.ILoadFile;
@@ -32,6 +34,8 @@ public class WriteTasklet implements Tasklet {
 	private NanoCheckerResultWriteMapper nanoCheckerResultWriteMapper;
 	@Autowired
 	private NanoCheckerPushHistoryWriteMapper nanoCheckerPushHistoryWriteMapper;
+	@Autowired
+	private NanoCheckerDeviceTokenReadMapper nanoCheckerDeviceTokenReadMapper;
 
 	@Autowired
 	private ILoadFile loadFile;
@@ -70,6 +74,9 @@ public class WriteTasklet implements Tasklet {
 		
 		// 传递数据的Map
 		HashMap<String, String> dataMap = new HashMap<String, String>();
+		
+		// IOS deviceToken取得
+		List<String> deviceTokenList = nanoCheckerDeviceTokenReadMapper.selectAll();
 
 		// 读取文件的目录取得
 		String filePath = "C:/txtTest/";
@@ -106,9 +113,10 @@ public class WriteTasklet implements Tasklet {
 			// 检查时间
 			dataMap.put("testTime", sdf.format(testTime));
 			
+			// 向安卓手机推送消息
 			push.push(title, message, dataMap);
 			// 向苹果手机推送消息
-			push.apnpush(title, message, dataMap);
+			push.apnpush(title, message, dataMap, deviceTokenList);
 
 			// 推送记录登录
 			NanoCheckerPushHistory record = new NanoCheckerPushHistory();
