@@ -22,7 +22,7 @@
     select 
     *
     from NanoCheckerPushHistory
-
+    order by TestTime desc
   </select>
 
 </mapper>
