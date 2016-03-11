@@ -22,12 +22,12 @@
   <insert id="insertSelective" parameterType="com.push.bean.gen.NanoCheckerDeviceToken" useGeneratedKeys="true" keyProperty="id">
     insert into NanoCheckerDeviceToken
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="devicetoken != null" >
+      <if test="devicetoken != null and ''!= devicetoken" >
         deviceToken,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="devicetoken != null" >
+      <if test="devicetoken != null and ''!= devicetoken" >
         #{devicetoken,jdbcType=VARCHAR},
       </if>
     </trim>
