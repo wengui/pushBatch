@@ -98,6 +98,8 @@ public class WriteTasklet implements Tasklet {
 
 			// 数据操作完成后，将文件移动的备份文件夹中
 			loadFile.move(filePath + name, "C:/txtTest1/");
+			// 删除源文件夹内容
+			loadFile.deleteDirectory(filePath + name);
 
 			// 患者姓名
 			dataMap.put("patientName", patientName);

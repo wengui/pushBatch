@@ -205,10 +205,26 @@ public class LoadFileUtilImpl implements ILoadFile {
 		
 		   File fold = new File(originalPath);//某路径下的文件
 		   File fnewpath = new File(newPath);
+		   // 如果目标目录不存在，则拷贝
 		   if(!fnewpath.exists())
-		     fnewpath.mkdirs();
+		   fnewpath.mkdirs();
 		   File fnew = new File(newPath+fold.getName());
 		   fold.renameTo(fnew);
 		 }
+	
+    /** 
+     * 删除目录及其下面的所有子文件和子文件夹，注意一个目录下如果还有其他文件或文件夹 
+     * 则直接调用delete方法是不行的，必须待其子文件和子文件夹完全删除了才能够调用delete 
+     *  
+     * @param path 
+     *            path为该目录的路径 
+     */  
+	public boolean deleteDirectory(String path) {  
+        boolean flag = true;  
+        File dirFile = new File(path);  
+ 
+        flag = dirFile.delete(); // 删除空目录  
+        return flag;  
+    }
 	
 }
