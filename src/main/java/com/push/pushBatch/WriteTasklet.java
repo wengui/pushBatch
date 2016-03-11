@@ -79,8 +79,8 @@ public class WriteTasklet implements Tasklet {
 		List<String> deviceTokenList = nanoCheckerDeviceTokenReadMapper.selectAll();
 
 		// 读取文件的目录取得
-		String filePath = "C:/txtTest/";
-		ArrayList<String> fileName = loadFile.getAllFileName("C:/txtTest");
+		String filePath = "C:/SRC/";
+		ArrayList<String> fileName = loadFile.getAllFileName("C:/SRC");
 		// 根据目标文件夹下文件列表循环读取数据
 		for (String name : fileName) {
 			String patientName = "";// 患者姓名
@@ -104,7 +104,7 @@ public class WriteTasklet implements Tasklet {
 			}
 
 			// 数据操作完成后，将文件移动的备份文件夹中
-			loadFile.move(filePath + name, "C:/txtTest1/");
+			loadFile.move(filePath + name, "C:/DIR/");
 			// 删除源文件夹内容
 			loadFile.deleteDirectory(filePath + name);
 
