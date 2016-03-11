@@ -82,5 +82,13 @@
 			selectByExampleQueryId="false">
 			<generatedKey column="ID" sqlStatement="sqlserver" identity="true"/>
 		</table>
+		
+		<!-- IOS DeviceToken -->
+		<table schema="" tableName="NanoCheckerDeviceToken" domainObjectName="NanoCheckerDeviceToken"
+			enableCountByExample="false" enableUpdateByExample="false"
+			enableDeleteByExample="false" enableSelectByExample="false"
+			selectByExampleQueryId="false">
+			<generatedKey column="ID" sqlStatement="sqlserver" identity="true"/>
+		</table>
 	</context>
 </generatorConfiguration>
