@@ -1,6 +1,7 @@
 package com.push.util;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.push.bean.gen.NanoCheckerResult;
 
@@ -58,4 +59,9 @@ public interface ILoadFile {
      *            path为该目录的路径 
      */  
 	public boolean deleteDirectory(String path);
+	
+	/**
+	 * 根据用户生日计算年龄
+	 */
+	public int getAgeByBirthday(Date birthday);
 }
