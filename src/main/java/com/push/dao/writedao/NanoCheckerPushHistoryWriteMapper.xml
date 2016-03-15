@@ -8,7 +8,7 @@
     <result column="PushContent" property="pushcontent" jdbcType="VARCHAR" />
     <result column="PatientName" property="patientname" jdbcType="VARCHAR" />
     <result column="TestTime" property="testtime" jdbcType="TIMESTAMP" />
-    <result column="SampleID" property="sampleid" jdbcType="INTEGER" />
+    <result column="SampleID" property="sampleid" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     ID, DoctorName, PushTime, PushContent, PatientName, TestTime, SampleID
@@ -25,7 +25,7 @@
       PatientName, TestTime, SampleID
       )
     values (#{doctorname,jdbcType=VARCHAR}, #{pushtime,jdbcType=TIMESTAMP}, #{pushcontent,jdbcType=VARCHAR}, 
-      #{patientname,jdbcType=VARCHAR}, #{testtime,jdbcType=TIMESTAMP}, #{sampleid,jdbcType=INTEGER}
+      #{patientname,jdbcType=VARCHAR}, #{testtime,jdbcType=TIMESTAMP}, #{sampleid,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.push.bean.gen.NanoCheckerPushHistory" >
@@ -70,7 +70,7 @@
         #{testtime,jdbcType=TIMESTAMP},
       </if>
       <if test="sampleid != null" >
-        #{sampleid,jdbcType=INTEGER},
+        #{sampleid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -93,7 +93,7 @@
         TestTime = #{testtime,jdbcType=TIMESTAMP},
       </if>
       <if test="sampleid != null" >
-        SampleID = #{sampleid,jdbcType=INTEGER},
+        SampleID = #{sampleid,jdbcType=VARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
@@ -105,7 +105,7 @@
       PushContent = #{pushcontent,jdbcType=VARCHAR},
       PatientName = #{patientname,jdbcType=VARCHAR},
       TestTime = #{testtime,jdbcType=TIMESTAMP},
-      SampleID = #{sampleid,jdbcType=INTEGER}
+      SampleID = #{sampleid,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

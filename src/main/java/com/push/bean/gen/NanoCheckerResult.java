@@ -15,7 +15,7 @@ public class NanoCheckerResult {
 
     private Integer age;
 
-    private Integer sampleid;
+    private String sampleid;
 
     private String department;
 
@@ -67,11 +67,11 @@ public class NanoCheckerResult {
         this.age = age;
     }
 
-    public Integer getSampleid() {
+    public String getSampleid() {
         return sampleid;
     }
 
-    public void setSampleid(Integer sampleid) {
+    public void setSampleid(String sampleid) {
         this.sampleid = sampleid;
     }
 

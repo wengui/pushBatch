@@ -8,7 +8,7 @@
     <result column="ItemName" property="itemname" jdbcType="VARCHAR" />
     <result column="Value" property="value" jdbcType="VARCHAR" />
     <result column="Age" property="age" jdbcType="INTEGER" />
-    <result column="SampleID" property="sampleid" jdbcType="INTEGER" />
+    <result column="SampleID" property="sampleid" jdbcType="VARCHAR" />
     <result column="Department" property="department" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
@@ -26,7 +26,7 @@
       Value, Age, SampleID, 
       Department)
     values (#{patientname,jdbcType=VARCHAR}, #{testtime,jdbcType=TIMESTAMP}, #{itemname,jdbcType=VARCHAR}, 
-      #{value,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{sampleid,jdbcType=INTEGER}, 
+      #{value,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{sampleid,jdbcType=VARCHAR}, 
       #{department,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.push.bean.gen.NanoCheckerResult" >
@@ -74,7 +74,7 @@
         #{age,jdbcType=INTEGER},
       </if>
       <if test="sampleid != null" >
-        #{sampleid,jdbcType=INTEGER},
+        #{sampleid,jdbcType=VARCHAR},
       </if>
       <if test="department != null" >
         #{department,jdbcType=VARCHAR},
@@ -100,7 +100,7 @@
         Age = #{age,jdbcType=INTEGER},
       </if>
       <if test="sampleid != null" >
-        SampleID = #{sampleid,jdbcType=INTEGER},
+        SampleID = #{sampleid,jdbcType=VARCHAR},
       </if>
       <if test="department != null" >
         Department = #{department,jdbcType=VARCHAR},
@@ -115,7 +115,7 @@
       ItemName = #{itemname,jdbcType=VARCHAR},
       Value = #{value,jdbcType=VARCHAR},
       Age = #{age,jdbcType=INTEGER},
-      SampleID = #{sampleid,jdbcType=INTEGER},
+      SampleID = #{sampleid,jdbcType=VARCHAR},
       Department = #{department,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
