@@ -32,7 +32,9 @@
 		ref.[Max],
 		ref.Reference,
 		ref.Unit,
-		ref.Color
+		ref.Color,
+		result.SampleId,
+		result.Department
 
 		from NanoCheckerRef ref,NanoCheckerResult result,NanoCheckerItemRef itemref
 		WHERE

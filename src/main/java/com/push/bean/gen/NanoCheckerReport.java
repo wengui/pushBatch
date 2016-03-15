@@ -25,7 +25,13 @@ public class NanoCheckerReport {
     private String Unit;
     //颜色
     private String Color;
-
+    //样本号
+    private String SampleId;
+       
+    //科室
+    private String Department;
+    
+    
     public String getPatientName() {
  		return PatientName;
  	}
@@ -85,6 +91,18 @@ public class NanoCheckerReport {
 	}
 	public void setColor(String color) {
 		Color = color;
+	}
+	public String getSampleId() {
+		return SampleId;
+	}
+	public void setSampleId(String sampleId) {
+		SampleId = sampleId;
+	}
+	public String getDepartment() {
+		return Department;
+	}
+	public void setDepartment(String department) {
+		Department = department;
 	}
  	
 }
