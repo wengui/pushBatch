@@ -78,11 +78,11 @@ public class PushtoImpl implements Ipush{
 		apnpayload.setSound("");
 		APNPayload.DictionaryAlertMsg alertMsg = new APNPayload.DictionaryAlertMsg();
 		// IOS手机推送的title
-		alertMsg.setTitle(title + "苹果手机");
+		alertMsg.setTitle(title);
 		// IOS手机推送的message
 		alertMsg.setBody(messages);
-		alertMsg.setTitleLocKey("ccccc");
-		alertMsg.setActionLocKey("ddddd" + "苹果手机");
+		alertMsg.setTitleLocKey(title);
+		alertMsg.setActionLocKey("");
 		apnpayload.setAlertMsg(alertMsg);
 		apnpayload.addCustomMsg("name", dateMap.get("patientName"));
 		apnpayload.addCustomMsg("time", dateMap.get("testTime"));
@@ -148,7 +148,7 @@ public class PushtoImpl implements Ipush{
 			LinkTemplate template = new LinkTemplate();
 			template.setAppId(appId);
 			template.setAppkey(appkey);
-			template.setTitle(title+"安卓手机");
+			template.setTitle(title);
 			template.setText(message);
 			template.setLogo("icon.png");
 			template.setLogoUrl("");
@@ -173,7 +173,7 @@ public class PushtoImpl implements Ipush{
 			template.setAppId(appId);
 			template.setAppkey(appkey);
 			// 安卓手机推送的title
-			template.setTitle(title + "点击通知打开应用模板");
+			template.setTitle(title);
 			// 安卓手机推送的message
 			template.setText(message);
 			template.setLogo("icon.png");

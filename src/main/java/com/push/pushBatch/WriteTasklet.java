@@ -69,7 +69,7 @@ public class WriteTasklet implements Tasklet {
 	 */
 	public void excuteBatch() throws Exception {
 		// 消息推送
-		String title = "健康检查";// 推送消息title
+		String title = "医疗直通车";// 推送消息title
 		String message = "你有一条最新的检查结果的通知！";// 推送消息messsage
 		
 		// 传递数据的Map
