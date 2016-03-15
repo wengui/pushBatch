@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.stereotype.Component;
 
 import com.push.bean.gen.NanoCheckerResult;
@@ -36,11 +38,6 @@ public class LoadFileUtilImpl implements ILoadFile {
 	 * 日期格式
 	 */
 	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-	
-	/**
-	 * 日期格式
-	 */
-	private static final SimpleDateFormat sdf1 = new SimpleDateFormat("yyyyMMdd");
 
 	/**
 	 * 功能：Java读取txt文件的内容 步骤：1：先获得文件句柄 2：获得文件句柄当做是输入一个字节码流，需要对这个输入流进行读取
@@ -63,6 +60,8 @@ public class LoadFileUtilImpl implements ILoadFile {
 				String testtime = "";
 				String patientName = "";// 患者姓名
 				int age = 0;// 患者年龄
+				String sampleId = "";// 标本号
+				String department = "";//科室 
 				while ((lineTxt = bufferedReader.readLine()) != null) {
 
 					if (lineTxt.startsWith("H")) {
@@ -70,37 +69,47 @@ public class LoadFileUtilImpl implements ILoadFile {
 						testtime = lineTxt.substring(6, 20);
 					} else if (lineTxt.startsWith("P")) {
 
-						int nameStart = getCharacterPosition(lineTxt, 5);
-						int nameEnd = getCharacterPosition(lineTxt, 6);
-						int ageStart = getCharacterPosition(lineTxt, 7);
-						int ageEnd = getCharacterPosition(lineTxt, 8);
-						String birthday = "";
+						int sampleIdStart = getCharacterPosition(lineTxt, 4);
+						int sampleIdEnd = getCharacterPosition(lineTxt, 5);
+						int nameStart = getCharacterPosition(lineTxt, 14);
+						int nameEnd = getCharacterPosition(lineTxt, 15);
+						int ageStart = getCharacterPosition(lineTxt, 15);
+						int ageEnd = getCharacterPosition(lineTxt, 16);
+						
 						String name = "";
+						String depart = "";
 
+						// 标本号
+						sampleId = lineTxt.substring(sampleIdStart + 1, sampleIdEnd);
+						
 						// 取得患者姓名
 						name = lineTxt.substring(nameStart + 1, nameEnd);
 						if ("".equals(name) || name == null) {
 							// 如果患者姓名没有取到的场合
-							patientName = "患者";
+							patientName = "不详";
 						} else {
 							patientName = name;
 						}
 						// 患者年龄
-						birthday = lineTxt.substring(ageStart + 1, ageEnd);
-
-						// 患者年龄
-						if ("".equals(birthday) || birthday == null) {
-							// 如果年龄未取到的场合
-							age = 0;
+						age = NumberUtils.toInt(lineTxt.substring(ageStart + 1, ageEnd));
+						
+						// 科室
+						depart = lineTxt.substring(ageEnd + 1, lineTxt.length());
+						if ("".equals(depart) || depart == null) {
+							// 如果患者姓名没有取到的场合
+							department = "不详";
 						} else {
-							age = getAgeByBirthday(sdf1.parse(birthday));
+							department = depart;
 						}
+
 
 					} else if (lineTxt.startsWith("R") && !lineTxt.contains("Control")) {
 						NanoCheckerResult result = new NanoCheckerResult();
 						result.setPatientname(patientName);// 患者姓名
 						result.setTesttime(sdf.parse(testtime));// 测试时间
 						result.setAge(age);// 患者年龄
+						result.setSampleid(sampleId);// 标本号
+						result.setDepartment(department);// 科室
 
 						// 项目名称设定
 						int lastIndex = lineTxt.lastIndexOf("^");

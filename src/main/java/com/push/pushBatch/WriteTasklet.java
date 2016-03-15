@@ -83,6 +83,7 @@ public class WriteTasklet implements Tasklet {
 		ArrayList<String> fileName = loadFile.getAllFileName("C:/SRC");
 		// 根据目标文件夹下文件列表循环读取数据
 		for (String name : fileName) {
+			String sampleid = "";// 标本号 
 			String patientName = "";// 患者姓名
 			Date testTime = null;// 检查时间
 			String itemName = "";// 测试项目
@@ -91,10 +92,13 @@ public class WriteTasklet implements Tasklet {
 			// 从文件中读取的数
 			ArrayList<NanoCheckerResult> resultList = loadFile.readTxtFile(filePath + name);
 			
+			if(resultList != null && resultList.size()>0){
+				patientName = resultList.get(0).getPatientname();
+				testTime = resultList.get(0).getTesttime();
+				sampleid = resultList.get(0).getSampleid();
+			}
 			// 根据读取的内容向数据库中插入检查结果
 			for (NanoCheckerResult result : resultList) {
-				patientName = result.getPatientname();
-				testTime = result.getTesttime();
 				// 测试项目名称取得
 				if(map.containsKey(result.getItemname())){
 					pushcontent.append(map.get(result.getItemname()));
@@ -132,6 +136,7 @@ public class WriteTasklet implements Tasklet {
 			
 			record.setPatientname(patientName);// 患者姓名
 			record.setTesttime(testTime);// 患者测试时间
+			record.setSampleid(sampleid);// 标本号
 
 			// 推送记录登录
 			nanoCheckerPushHistoryWriteMapper.insertSelective(record);
