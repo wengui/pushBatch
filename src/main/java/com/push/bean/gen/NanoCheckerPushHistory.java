@@ -15,6 +15,8 @@ public class NanoCheckerPushHistory {
 
     private Date testtime;
 
+    private Integer sampleid;
+
     public Integer getId() {
         return id;
     }
@@ -61,5 +63,13 @@ public class NanoCheckerPushHistory {
 
     public void setTesttime(Date testtime) {
         this.testtime = testtime;
+    }
+
+    public Integer getSampleid() {
+        return sampleid;
+    }
+
+    public void setSampleid(Integer sampleid) {
+        this.sampleid = sampleid;
     }
 }

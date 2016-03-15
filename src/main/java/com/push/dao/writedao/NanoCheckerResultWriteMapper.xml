@@ -8,9 +8,11 @@
     <result column="ItemName" property="itemname" jdbcType="VARCHAR" />
     <result column="Value" property="value" jdbcType="VARCHAR" />
     <result column="Age" property="age" jdbcType="INTEGER" />
+    <result column="SampleID" property="sampleid" jdbcType="INTEGER" />
+    <result column="Department" property="department" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, PatientName, TestTime, ItemName, Value, Age
+    ID, PatientName, TestTime, ItemName, Value, Age, SampleID, Department
   </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from NanoCheckerResult
@@ -21,9 +23,11 @@
       SELECT SCOPE_IDENTITY()
     </selectKey>
     insert into NanoCheckerResult (PatientName, TestTime, ItemName, 
-      Value, Age)
+      Value, Age, SampleID, 
+      Department)
     values (#{patientname,jdbcType=VARCHAR}, #{testtime,jdbcType=TIMESTAMP}, #{itemname,jdbcType=VARCHAR}, 
-      #{value,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER})
+      #{value,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{sampleid,jdbcType=INTEGER}, 
+      #{department,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.push.bean.gen.NanoCheckerResult" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -46,6 +50,12 @@
       <if test="age != null" >
         Age,
       </if>
+      <if test="sampleid != null" >
+        SampleID,
+      </if>
+      <if test="department != null" >
+        Department,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="patientname != null" >
@@ -62,6 +72,12 @@
       </if>
       <if test="age != null" >
         #{age,jdbcType=INTEGER},
+      </if>
+      <if test="sampleid != null" >
+        #{sampleid,jdbcType=INTEGER},
+      </if>
+      <if test="department != null" >
+        #{department,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -83,6 +99,12 @@
       <if test="age != null" >
         Age = #{age,jdbcType=INTEGER},
       </if>
+      <if test="sampleid != null" >
+        SampleID = #{sampleid,jdbcType=INTEGER},
+      </if>
+      <if test="department != null" >
+        Department = #{department,jdbcType=VARCHAR},
+      </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
@@ -92,7 +114,9 @@
       TestTime = #{testtime,jdbcType=TIMESTAMP},
       ItemName = #{itemname,jdbcType=VARCHAR},
       Value = #{value,jdbcType=VARCHAR},
-      Age = #{age,jdbcType=INTEGER}
+      Age = #{age,jdbcType=INTEGER},
+      SampleID = #{sampleid,jdbcType=INTEGER},
+      Department = #{department,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

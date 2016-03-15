@@ -8,9 +8,10 @@
     <result column="PushContent" property="pushcontent" jdbcType="VARCHAR" />
     <result column="PatientName" property="patientname" jdbcType="VARCHAR" />
     <result column="TestTime" property="testtime" jdbcType="TIMESTAMP" />
+    <result column="SampleID" property="sampleid" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, DoctorName, PushTime, PushContent, PatientName, TestTime
+    ID, DoctorName, PushTime, PushContent, PatientName, TestTime, SampleID
   </sql>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from NanoCheckerPushHistory
@@ -21,9 +22,11 @@
       SELECT SCOPE_IDENTITY()
     </selectKey>
     insert into NanoCheckerPushHistory (DoctorName, PushTime, PushContent, 
-      PatientName, TestTime)
+      PatientName, TestTime, SampleID
+      )
     values (#{doctorname,jdbcType=VARCHAR}, #{pushtime,jdbcType=TIMESTAMP}, #{pushcontent,jdbcType=VARCHAR}, 
-      #{patientname,jdbcType=VARCHAR}, #{testtime,jdbcType=TIMESTAMP})
+      #{patientname,jdbcType=VARCHAR}, #{testtime,jdbcType=TIMESTAMP}, #{sampleid,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.push.bean.gen.NanoCheckerPushHistory" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
@@ -46,6 +49,9 @@
       <if test="testtime != null" >
         TestTime,
       </if>
+      <if test="sampleid != null" >
+        SampleID,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="doctorname != null" >
@@ -62,6 +68,9 @@
       </if>
       <if test="testtime != null" >
         #{testtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sampleid != null" >
+        #{sampleid,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -83,6 +92,9 @@
       <if test="testtime != null" >
         TestTime = #{testtime,jdbcType=TIMESTAMP},
       </if>
+      <if test="sampleid != null" >
+        SampleID = #{sampleid,jdbcType=INTEGER},
+      </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
@@ -92,7 +104,8 @@
       PushTime = #{pushtime,jdbcType=TIMESTAMP},
       PushContent = #{pushcontent,jdbcType=VARCHAR},
       PatientName = #{patientname,jdbcType=VARCHAR},
-      TestTime = #{testtime,jdbcType=TIMESTAMP}
+      TestTime = #{testtime,jdbcType=TIMESTAMP},
+      SampleID = #{sampleid,jdbcType=INTEGER}
     where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

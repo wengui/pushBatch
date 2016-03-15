@@ -8,9 +8,11 @@
     <result column="ItemName" property="itemname" jdbcType="VARCHAR" />
     <result column="Value" property="value" jdbcType="VARCHAR" />
     <result column="Age" property="age" jdbcType="INTEGER" />
+    <result column="SampleID" property="sampleid" jdbcType="INTEGER" />
+    <result column="Department" property="department" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, PatientName, TestTime, ItemName, Value, Age
+    ID, PatientName, TestTime, ItemName, Value, Age, SampleID, Department
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
